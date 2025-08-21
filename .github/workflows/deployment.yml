@@ -31,7 +31,7 @@ jobs:
 
     deploy:
         needs: test
-        runs-on: selft-hosted
+        runs-on: self-hosted
         steps:
             - name: Checkout the Code
               uses: actions/checkout@v3
