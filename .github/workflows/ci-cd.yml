@@ -1,35 +1,34 @@
 name: Test artifact
+
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    build:
-        runs-on: ubunbut-latest
-        steps:
-            - uses: actions/checkout@v3
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-            - name: Build project
-              run: |
-                mkdir output
-                echo "Project Builded" > output/hello.txt
-            
-            - name: Upload artifact
-              uses: actions/upload-artifact@v3
-              with:
-                name: my-artifact
-                path: output/
+      - name: Build project
+        run: |
+          mkdir output
+          echo "Project Builded" > output/hello.txt
 
-    deploy:
-        runs-on: ubunbut-latest
-        needs: build
-        steps:
-            - uses: actions/checkout@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: output/
 
-            - name: Download Artifact
-              uses: actions/download-artifact@v3
-              with:
-                name: my-artifact
-            - name: Show files
-              run: ls 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+
+      - name: Show files
+        run: ls
